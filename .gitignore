@@ -11,3 +11,5 @@ Thumbs.db
 *.sln
 *.sw?
 .agents/
+
+.vercel
