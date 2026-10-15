@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>댕댕이 땅따먹기 대결! 🐾 Puppy Land Game</title>
+  <meta name="description" content="귀여운 강아지와 함께하는 영토 차지 땅따먹기 배틀 게임! 나와 컴퓨터 강아지의 영역을 넓혀보세요.">
+  
+  <!-- 구글 폰트: 귀엽고 둥글둥글한 폰트 (Gaegu & Jua & Fredoka) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Jua&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- 배경 애니메이션 요소 (구름, 뼈다귀, 발바닥) -->
+  <div class="bg-decorations" aria-hidden="true">
+    <div class="cloud cloud-1">☁️</div>
+    <div class="cloud cloud-2">☁️</div>
+    <div class="cloud cloud-3">☁️</div>
+    <div class="floating-item bone-1">🦴</div>
+    <div class="floating-item bone-2">🦴</div>
+    <div class="floating-item paw-1">🐾</div>
+    <div class="floating-item paw-2">🐾</div>
+  </div>
+
+  <main class="game-container">
+    <!-- 헤더 영역 -->
+    <header class="game-header">
+      <div class="title-badge">
+        <span class="badge-icon">🐶</span>
+        <span class="badge-text">마당 영역 표시 대배틀!</span>
+        <span class="badge-icon">🐾</span>
+      </div>
+      <h1 class="game-title">댕댕이 땅따먹기</h1>
+
+      <!-- 라운드 & 선공/후공 표시 바 -->
+      <div class="match-info-banner">
+        <span class="round-tag" id="roundTag">Round 1</span>
+        <span class="first-turn-tag" id="firstTurnTag">⭐ 선공: 뽀송이 (나)</span>
+      </div>
+      
+      <!-- 상단 컨트롤 버튼 (사운드 토글 & 난이도/보드 크기) -->
+      <div class="top-controls">
+        <button id="soundToggleBtn" class="control-btn" title="효과음 켜기/끄기" aria-label="효과음 토글">
+          <span class="ctrl-icon" id="soundIcon">🔊</span>
+          <span class="ctrl-text" id="soundText">소리 켬</span>
+        </button>
+        
+        <div class="size-selector">
+          <label for="boardSizeSelect" class="size-label">잔디밭 크기:</label>
+          <select id="boardSizeSelect" class="size-dropdown">
+            <option value="4">4 x 4 (16칸)</option>
+            <option value="5" selected>5 x 5 (25칸)</option>
+            <option value="6">6 x 6 (36칸)</option>
+          </select>
+        </div>
+      </div>
+    </header>
+
+    <!-- 대결 정보 및 스코어보드 -->
+    <section class="scoreboard-section" aria-label="대결 현황">
+      <!-- 플레이어 (나 / 뽀송이) -->
+      <div class="player-card user-card active" id="userCard">
+        <div class="first-order-pill hidden" id="userFirstPill">선공 ⭐</div>
+        <div class="avatar-wrapper">
+          <div class="avatar-ring"></div>
+          <div class="avatar-emoji">🐶</div>
+          <span class="tag-badge">나 (Player)</span>
+        </div>
+        <div class="player-info">
+          <h2 class="player-name">뽀송이</h2>
+          <div class="score-sum-box">
+            <span class="score-sum-label">점수 합계</span>
+            <div class="score-display">
+              <span class="score-num" id="userScore">0</span>
+              <span class="score-unit">점</span>
+            </div>
+            <span class="tiles-count-sub" id="userTilesSub">0칸 차지</span>
+          </div>
+        </div>
+        <div class="stamp-preview user-stamp">🐾 노랑 발도장</div>
+      </div>
+
+      <!-- VS 배지 및 턴 표시기 -->
+      <div class="vs-center">
+        <div class="vs-circle">VS</div>
+        <div class="turn-bubble" id="turnBubble">
+          <span class="turn-dot"></span>
+          <span id="turnText">내 차례! 빈 칸을 터치해봐! 🐾</span>
+        </div>
+      </div>
+
+      <!-- 컴퓨터 (몽실이) -->
+      <div class="player-card bot-card" id="botCard">
+        <div class="first-order-pill hidden" id="botFirstPill">선공 ⭐</div>
+        <div class="avatar-wrapper">
+          <div class="avatar-ring"></div>
+          <div class="avatar-emoji">🐕</div>
+          <span class="tag-badge">컴퓨터 (AI)</span>
+        </div>
+        <div class="player-info">
+          <h2 class="player-name">몽실이</h2>
+          <div class="score-sum-box">
+            <span class="score-sum-label">점수 합계</span>
+            <div class="score-display">
+              <span class="score-num" id="botScore">0</span>
+              <span class="score-unit">점</span>
+            </div>
+            <span class="tiles-count-sub" id="botTilesSub">0칸 차지</span>
+          </div>
+        </div>
+        <div class="stamp-preview bot-stamp">🐾 민트 발도장</div>
+      </div>
+    </section>
+
+    <!-- 영역 점유율 프로그레스 바 -->
+    <div class="territory-bar-wrapper" title="실시간 마당 점유율">
+      <div class="bar-labels">
+        <span class="bar-label-user">뽀송이 <b id="userPercent">0%</b></span>
+        <span class="bar-label-remain">남은 빈 잔디 <b id="remainTiles">25</b>칸</span>
+        <span class="bar-label-bot">몽실이 <b id="botPercent">0%</b></span>
+      </div>
+      <div class="territory-bar">
+        <div class="bar-fill user-fill" id="userFill" style="width: 0%;"></div>
+        <div class="bar-fill bot-fill" id="botFill" style="width: 0%;"></div>
+      </div>
+    </div>
+
+    <!-- 특수 타일 범례 안내 -->
+    <div class="special-legend">
+      <div class="legend-chip legend-obstacle" title="밟을 수 없는 칸">
+        <span class="chip-icon">🪨💧🐱</span>
+        <span class="chip-txt">장애물 (진입불가)</span>
+      </div>
+      <div class="legend-chip legend-bonus" title="판의 점수는 비공개! 밟았을 때 점수가 공개됩니다!">
+        <span class="chip-icon">❓🐾</span>
+        <span class="chip-txt">비밀 잔디 (밟으면 -2~+4점 공개!)</span>
+      </div>
+      <div class="legend-chip legend-dice" title="가끔 2~3칸 연속 선택">
+        <span class="chip-icon">🎲</span>
+        <span class="chip-txt">주사위 찬스 (연속 선택!)</span>
+      </div>
+    </div>
+
+    <!-- 🎲 행운의 주사위 찬스 알림 배너 -->
+    <div id="diceEventBanner" class="dice-event-banner hidden" role="status">
+      <div class="dice-cube-icon" id="diceCubeIcon">🎲</div>
+      <div class="dice-info-text">
+        <div class="dice-headline" id="diceHeadline">🎲 행운의 주사위 찬스 발동!</div>
+        <div class="dice-subtext" id="diceSubtext">한 번에 <b id="diceTotalPips">2</b>칸을 연속으로 차지해요! (남은 횟수: <b id="diceRemainPips">2</b>칸)</div>
+      </div>
+    </div>
+
+    <!-- 게임 보드판 (정사각형 칸들) -->
+    <section class="board-container">
+      <div class="board-frame">
+        <div class="board-decor-corner corner-tl">🌸</div>
+        <div class="board-decor-corner corner-tr">🦴</div>
+        <div class="board-decor-corner corner-bl">🦴</div>
+        <div class="board-decor-corner corner-br">🌸</div>
+
+        <!-- 실제 그리드 판 -->
+        <div id="gameBoard" class="game-board grid-5" role="grid" aria-label="땅따먹기 게임판">
+          <!-- 자바스크립트로 동적 생성 -->
+        </div>
+
+        <!-- 컴퓨터 생각 중 오버레이 안내 (살짝 귀엽게 띄움) -->
+        <div id="botThinkingBanner" class="bot-thinking-banner hidden">
+          <span class="sniff-icon">👃</span>
+          <span class="sniff-text">몽실이가 킁킁거리며 다음 땅을 고르는 중...</span>
+          <span class="sniff-dots">🐾</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 하단 액션 버튼들 -->
+    <footer class="game-footer">
+      <button id="resetBtn" class="action-btn btn-restart" aria-label="새 게임 시작">
+        <span class="btn-icon">🎲</span>
+        <span class="btn-text">새 게임 (랜덤 선공 & 리셋)</span>
+      </button>
+      <div class="game-guide">
+        💡 <b>시크릿 복불복 룰:</b> 판 위의 점수는 <b>철저히 비밀</b>입니다! 잔디 칸을 터치해 내 땅으로 만드는 순간 <b>-2점부터 +4점까지의 숨겨진 점수가 팡! 공개</b>됩니다. 가끔 터지는 <b>🎲 주사위 찬스</b>도 노려보세요!
+      </div>
+    </footer>
+  </main>
+
+  <!-- 게임 결과 팝업 모달 -->
+  <div id="resultModal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modalResultTitle">
+    <div class="modal-card">
+      <div class="modal-confetti-canvas-wrapper">
+        <canvas id="confettiCanvas"></canvas>
+      </div>
+      
+      <div class="modal-header">
+        <div class="result-character" id="resultCharacter">🐶🎉</div>
+        <h2 id="modalResultTitle" class="modal-title">결과 발표!</h2>
+        <p id="modalResultDesc" class="modal-desc">축하합니다! 뽀송이가 마당의 대장이 되었어요!</p>
+      </div>
+
+      <!-- 최종 스코어 비교 카드 -->
+      <div class="modal-score-board">
+        <div class="score-box user-box">
+          <div class="box-icon">🐶</div>
+          <div class="box-name">나 (뽀송이)</div>
+          <div class="box-score" id="modalUserScore">0칸</div>
+        </div>
+        <div class="modal-vs-divider">VS</div>
+        <div class="score-box bot-box">
+          <div class="box-icon">🐕</div>
+          <div class="box-name">컴퓨터 (몽실이)</div>
+          <div class="box-score" id="modalBotScore">0칸</div>
+        </div>
+      </div>
+
+      <!-- 보상 멘트 -->
+      <div class="modal-badge-msg" id="modalBadgeMsg">
+        🍖 황금 뼈다귀 트로피 획득!
+      </div>
+
+      <!-- 모달 버튼 -->
+      <div class="modal-actions">
+        <button id="modalPlayAgainBtn" class="action-btn btn-primary">
+          <span class="btn-icon">🎮</span>
+          <span>한 판 더 대결하기!</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="sound.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>
