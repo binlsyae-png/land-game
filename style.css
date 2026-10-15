@@ -1278,3 +1278,362 @@ html, body {
     font-size: 1.05rem;
   }
 }
+/* ========================================================
+   인트로 화면 및 규칙 모달 스타일
+======================================================== */
+.intro-overlay {
+  z-index: 200;
+  padding: 14px;
+}
+
+.intro-card {
+  max-width: 560px;
+  width: 95%;
+  max-height: 92vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 24px 20px 22px;
+  border: 5px solid #ffb74d;
+  border-radius: 28px;
+  background: #fffdf9;
+  box-shadow: 0 20px 50px rgba(78, 52, 46, 0.35);
+  scrollbar-width: thin;
+  scrollbar-color: #ffb74d #fff3e0;
+}
+
+.intro-card::-webkit-scrollbar {
+  width: 6px;
+}
+
+.intro-card::-webkit-scrollbar-track {
+  background: #fff3e0;
+  border-radius: 10px;
+}
+
+.intro-card::-webkit-scrollbar-thumb {
+  background: #ffb74d;
+  border-radius: 10px;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid #ffcc80;
+  background: #fff;
+  color: #8d6e63;
+  font-size: 1.1rem;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 3px 0 #ffe082;
+  transition: all 0.15s ease;
+  z-index: 10;
+}
+
+.modal-close-btn:hover {
+  transform: rotate(90deg) scale(1.1);
+  background: #ffe082;
+  color: #3e2723;
+}
+
+.modal-close-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #ffe082;
+}
+
+.intro-header {
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.intro-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, #ffe082, #ffb74d);
+  color: #4e342e;
+  font-size: 0.85rem;
+  font-weight: 800;
+  padding: 4px 14px;
+  border-radius: 20px;
+  box-shadow: 0 3px 0 #f57c00;
+  margin-bottom: 6px;
+}
+
+.intro-title {
+  font-size: 1.9rem;
+  font-weight: 900;
+  color: #3e2723;
+  letter-spacing: -0.5px;
+  margin-bottom: 4px;
+  line-height: 1.2;
+}
+
+.intro-subtitle {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #6d4c41;
+}
+
+/* 인트로 일러스트 이미지 프레임 */
+.intro-img-frame {
+  position: relative;
+  width: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 3px solid #ffe082;
+  box-shadow: 0 8px 20px rgba(141, 110, 99, 0.18);
+  margin-bottom: 14px;
+  background: #e8f5e9;
+}
+
+.intro-img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.intro-img-frame:hover .intro-img {
+  transform: scale(1.03);
+}
+
+.intro-img-tag {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(4px);
+  color: #33691e;
+  font-size: 0.82rem;
+  font-weight: 800;
+  padding: 4px 14px;
+  border-radius: 20px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  white-space: nowrap;
+}
+
+/* 플레이어 소개 미니 바 */
+.intro-players-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: rgba(255, 243, 224, 0.7);
+  border: 1.5px dashed #ffb74d;
+  padding: 8px 12px;
+  border-radius: 16px;
+  margin-bottom: 14px;
+}
+
+.intro-player-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+.intro-player-pill.user-pill {
+  color: #e65100;
+}
+
+.intro-player-pill.bot-pill {
+  color: #006064;
+}
+
+.pill-stamp {
+  font-size: 0.75rem;
+  padding: 2px 6px;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.intro-vs-text {
+  font-size: 0.9rem;
+  font-weight: 900;
+  color: #d84315;
+  background: #fff;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* 규칙 안내 섹션 */
+.intro-rules-section {
+  text-align: left;
+  margin-bottom: 18px;
+}
+
+.rules-heading {
+  font-size: 1.05rem;
+  font-weight: 900;
+  color: #3e2723;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.intro-rules-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.rule-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: #ffffff;
+  border: 2px solid #f1f1f1;
+  border-radius: 16px;
+  padding: 10px 10px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.03);
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.rule-card:hover {
+  transform: translateY(-2px);
+  border-color: #ffd54f;
+  box-shadow: 0 5px 12px rgba(255, 183, 77, 0.15);
+}
+
+.rule-icon-circle {
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+}
+
+.bg-paw { background: #fff3e0; }
+.bg-mystery { background: #fce4ec; }
+.bg-dice { background: #ede7f6; }
+.bg-trophy { background: #e8f5e9; }
+
+.rule-info {
+  flex: 1;
+}
+
+.rule-title {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: #3e2723;
+  margin-bottom: 3px;
+  line-height: 1.2;
+}
+
+.rule-desc {
+  font-size: 0.78rem;
+  color: #5d4037;
+  line-height: 1.35;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* 게임 시작 버튼 */
+.intro-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 6px;
+}
+
+.btn-intro-start {
+  width: 100%;
+  max-width: 380px;
+  background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+  color: #ffffff;
+  font-size: 1.35rem;
+  font-weight: 900;
+  padding: 15px 28px;
+  border-radius: 26px;
+  box-shadow: 0 6px 0 #b26a00, 0 10px 20px rgba(245, 124, 0, 0.35);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  letter-spacing: -0.3px;
+  animation: introStartBounce 2s infinite ease-in-out;
+}
+
+.btn-intro-start:hover {
+  transform: translateY(-3px) scale(1.02);
+  background: linear-gradient(135deg, #ffa726 0%, #fb8c00 100%);
+  box-shadow: 0 8px 0 #b26a00, 0 14px 26px rgba(245, 124, 0, 0.45);
+}
+
+.btn-intro-start:active {
+  transform: translateY(3px) scale(0.98);
+  box-shadow: 0 2px 0 #b26a00;
+}
+
+@keyframes introStartBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+/* 모바일 반응형 조절 */
+@media (max-width: 520px) {
+  .top-controls {
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .intro-card {
+    padding: 20px 14px 18px;
+    border-radius: 22px;
+  }
+
+  .intro-title {
+    font-size: 1.55rem;
+  }
+
+  .intro-subtitle {
+    font-size: 0.82rem;
+  }
+
+  .intro-rules-grid {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .rule-card {
+    padding: 8px 10px;
+  }
+
+  .rule-icon-circle {
+    width: 34px;
+    height: 34px;
+    font-size: 1.15rem;
+  }
+
+  .btn-intro-start {
+    font-size: 1.18rem;
+    padding: 13px 20px;
+  }
+}

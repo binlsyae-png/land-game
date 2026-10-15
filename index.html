@@ -41,8 +41,13 @@
         <span class="first-turn-tag" id="firstTurnTag">⭐ 선공: 뽀송이 (나)</span>
       </div>
       
-      <!-- 상단 컨트롤 버튼 (사운드 토글 & 난이도/보드 크기) -->
+      <!-- 상단 컨트롤 버튼 (규칙 보기, 사운드 토글 & 난이도/보드 크기) -->
       <div class="top-controls">
+        <button id="rulesBtn" class="control-btn" title="게임 규칙 다시보기" aria-label="게임 규칙">
+          <span class="ctrl-icon">📖</span>
+          <span class="ctrl-text">규칙 보기</span>
+        </button>
+
         <button id="soundToggleBtn" class="control-btn" title="효과음 켜기/끄기" aria-label="효과음 토글">
           <span class="ctrl-icon" id="soundIcon">🔊</span>
           <span class="ctrl-text" id="soundText">소리 켬</span>
@@ -226,6 +231,95 @@
           <span class="btn-icon">🎮</span>
           <span>한 판 더 대결하기!</span>
         </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 게임 인트로 및 규칙 모달 -->
+  <div id="introModal" class="modal-overlay intro-overlay" role="dialog" aria-modal="true" aria-labelledby="introTitle">
+    <div class="modal-card intro-card">
+      <button id="introCloseBtn" class="modal-close-btn" title="닫기" aria-label="닫기">✕</button>
+      
+      <div class="intro-header">
+        <div class="intro-badge">
+          <span>🐾</span>
+          <span>마당 영토 대배틀!</span>
+          <span>🐾</span>
+        </div>
+        <h2 id="introTitle" class="intro-title">댕댕이 땅따먹기 대결!</h2>
+        <p class="intro-subtitle">햇살 가득한 잔디밭에서 펼쳐지는 귀여운 땅따먹기 승부!</p>
+      </div>
+
+      <div class="intro-body-split">
+        <!-- 좌측: 대표 일러스트 & 플레이어 대결 칩 -->
+        <div class="intro-visual-col">
+          <div class="intro-img-frame">
+            <img src="intro_cover.jpg" alt="댕댕이 땅따먹기 대표 일러스트" class="intro-img" />
+            <div class="intro-img-tag">🌱 뽀송이 vs 몽실이의 발도장 승부!</div>
+          </div>
+          <div class="intro-players-bar">
+            <div class="intro-player-pill user-pill">
+              <span class="pill-avatar">🐶</span>
+              <span class="pill-name">나 (뽀송이)</span>
+              <span class="pill-stamp">🐾 노랑</span>
+            </div>
+            <div class="intro-vs-text">VS</div>
+            <div class="intro-player-pill bot-pill">
+              <span class="pill-avatar">🐕</span>
+              <span class="pill-name">컴퓨터 (몽실이)</span>
+              <span class="pill-stamp">🐾 민트</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 우측: 핵심 규칙 4종 & 게임 시작 버튼 -->
+        <div class="intro-rules-col">
+          <div class="intro-rules-section">
+            <h3 class="rules-heading">📋 초간단 핵심 규칙</h3>
+            <div class="intro-rules-grid">
+              <div class="rule-card">
+                <div class="rule-icon-circle bg-paw">🐾</div>
+                <div class="rule-info">
+                  <strong class="rule-title">1. 발도장 꾹 찍기</strong>
+                  <p class="rule-desc">빈 잔디를 터치하면 내 땅이 됩니다.</p>
+                </div>
+              </div>
+
+              <div class="rule-card">
+                <div class="rule-icon-circle bg-mystery">❓</div>
+                <div class="rule-info">
+                  <strong class="rule-title">2. 시크릿 복불복 점수</strong>
+                  <p class="rule-desc">숨겨진 보너스점(+1~+4) 또는 함정(-1~-2)!</p>
+                </div>
+              </div>
+
+              <div class="rule-card">
+                <div class="rule-icon-circle bg-dice">🎲</div>
+                <div class="rule-info">
+                  <strong class="rule-title">3. 행운의 주사위 찬스</strong>
+                  <p class="rule-desc">주사위가 터지면 연속 2~3칸 차지!</p>
+                </div>
+              </div>
+
+              <div class="rule-card">
+                <div class="rule-icon-circle bg-trophy">🏆</div>
+                <div class="rule-info">
+                  <strong class="rule-title">4. 최종 승리 조건</strong>
+                  <p class="rule-desc">모든 잔디 점령 후 총점이 높으면 승리!</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 게임 시작 버튼 -->
+          <div class="intro-actions">
+            <button id="introStartBtn" class="action-btn btn-intro-start" aria-label="게임 시작">
+              <span class="btn-icon">🎮</span>
+              <span class="btn-text">게임 시작하기!</span>
+              <span class="btn-icon">🐾</span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>

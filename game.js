@@ -55,6 +55,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const modalPlayAgainBtn = document.getElementById('modalPlayAgainBtn');
   const confettiCanvas = document.getElementById('confettiCanvas');
 
+  // 인트로 및 규칙 모달 요소
+  const introModal = document.getElementById('introModal');
+  const introStartBtn = document.getElementById('introStartBtn');
+  const introCloseBtn = document.getElementById('introCloseBtn');
+  const rulesBtn = document.getElementById('rulesBtn');
+
   // ========================================================
   // 게임 상태 변수
   // ========================================================
@@ -786,6 +792,53 @@ document.addEventListener('DOMContentLoaded', () => {
       soundIcon.textContent = '🔊';
       soundText.textContent = '소리 켬';
       window.soundEngine.playClick();
+    }
+  });
+
+  // ========================================================
+  // 인트로 화면 및 규칙 모달 이벤트 리스너
+  // ========================================================
+  if (introStartBtn) {
+    introStartBtn.addEventListener('click', () => {
+      if (typeof window.soundEngine.playBonus === 'function') {
+        window.soundEngine.playBonus();
+      } else {
+        window.soundEngine.playClick();
+      }
+      introModal.classList.add('hidden');
+    });
+  }
+
+  if (introCloseBtn) {
+    introCloseBtn.addEventListener('click', () => {
+      window.soundEngine.playClick();
+      introModal.classList.add('hidden');
+    });
+  }
+
+  if (rulesBtn) {
+    rulesBtn.addEventListener('click', () => {
+      window.soundEngine.playClick();
+      introModal.classList.remove('hidden');
+    });
+  }
+
+  // 모달 바깥 배경 클릭 시 닫기
+  if (introModal) {
+    introModal.addEventListener('click', (e) => {
+      if (e.target === introModal) {
+        window.soundEngine.playClick();
+        introModal.classList.add('hidden');
+      }
+    });
+  }
+
+  // ESC 키로 모달 닫기
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      if (introModal && !introModal.classList.contains('hidden')) {
+        introModal.classList.add('hidden');
+      }
     }
   });
 
